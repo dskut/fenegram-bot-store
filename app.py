@@ -1,7 +1,8 @@
 #! /usr/bin/env python
 
 import json
-from flask import Flask, Response
+import os.path
+from flask import Flask, Response, send_file, abort
 app = Flask(__name__)
 
 @app.route('/ping')
@@ -22,6 +23,15 @@ def get_bots():
 def list():
     resp_dict = {"items": get_bots()}
     return Response(json.dumps(resp_dict), mimetype='application/json')
+
+@app.route('/static/<string:filename>')
+def static_file(filename):
+    path = "static/" + filename
+    if os.path.isfile(path):
+        return send_file(path)
+    else:
+        abort(404)
+
 
 if __name__ == '__main__':
     app.run()
