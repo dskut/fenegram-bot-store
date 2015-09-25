@@ -4,9 +4,9 @@ import json
 from flask import Flask, Response
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/ping')
 def index():
-    return 'Hello Fenegram Bots'
+    return 'pong'
 
 def create_bot(ind):
     return {
@@ -15,10 +15,12 @@ def create_bot(ind):
         "description": "Bot Description %s" % ind
     }
 
+def get_bots():
+    return [create_bot(i) for i in xrange(1,21)]
+
 @app.route('/list')
 def list():
-    bots = [create_bot(i) for i in xrange(1,21)]
-    resp_dict = {"items": bots}
+    resp_dict = {"items": get_bots()}
     return Response(json.dumps(resp_dict), mimetype='application/json')
 
 if __name__ == '__main__':
