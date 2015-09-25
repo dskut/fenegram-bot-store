@@ -5,14 +5,21 @@ import os.path
 from flask import Flask, Response, send_file, abort
 app = Flask(__name__)
 
-@app.route('/ping')
+
+@app.route('/')
 def index():
+    return 'Available methods:\n/ping\n/list'
+
+@app.route('/ping')
+def ping():
     return 'pong'
 
 def create_bot(ind):
     return {
-        "name": "fenegram_bot %s" % ind, 
-        "image": "http://fenegram-bot-store.herokuapp.com/static/icon%s.jpg" % ind,
+        "usernamename": "@fenegram_%s_bot" % ind, 
+        "title": "Fenegram Bot %s" % ind, 
+        "id": "bot_id_%s" % ind, 
+        "image": "http://fenegram-bot-store.herokuapp.com/static/icon%s.png" % ind,
         "description": "Bot Description %s" % ind
     }
 
