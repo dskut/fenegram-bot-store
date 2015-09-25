@@ -12,7 +12,7 @@ def index():
 def create_bot(ind):
     return {
         "name": "fenegram_bot %s" % ind, 
-        "image": "http://fenegram-bot-store.herokuapp.com/icon%s.jpg" % ind,
+        "image": "http://fenegram-bot-store.herokuapp.com/static/icon%s.jpg" % ind,
         "description": "Bot Description %s" % ind
     }
 
