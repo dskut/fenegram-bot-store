@@ -47,10 +47,10 @@ def bots():
 def create_chant(ind):
     return {
         "title": "Bir Tek Sana Tutuldu Bu Kalpler %s" % ind,
-        "lyrics": "Bir tek sana tutuldu bu kalpler
+        "lyrics": '''Bir tek sana tutuldu bu kalpler
         Sevdanın uğruna tanımaz hiç engel
         Bizim için heves değilsin sen FENER
-        Aşkın bize yeter!",
+        Aşkın bize yeter!''',
         "url": "%s/static/chant%s.mp3" % (BACKEND_URL, ind)
     }
 
