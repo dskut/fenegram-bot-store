@@ -50,18 +50,18 @@ values
     'Sevdanın uğruna tanımaz hiç engel\n'
     'Bizim için heves değilsin sen FENER\n'
     'Aşkın bize yeter!', 'http://fenegram.herokuapp.com/static/chant1.mp3'),
-('Bir Tek Sana Tutuldu Bu Kalpler', E'Bir tek sana tutuldu bu kalpler\n'
-    'Sevdanın uğruna tanımaz hiç engel\n'
-    'Bizim için heves değilsin sen FENER\n'
-    'Aşkın bize yeter!', 'http://fenegram.herokuapp.com/static/chant2.mp3'),
-('Bir Tek Sana Tutuldu Bu Kalpler', E'Bir tek sana tutuldu bu kalpler\n'
-    'Sevdanın uğruna tanımaz hiç engel\n'
-    'Bizim için heves değilsin sen FENER\n'
-    'Aşkın bize yeter!', 'http://fenegram.herokuapp.com/static/chant3.mp3'),
-('Bir Tek Sana Tutuldu Bu Kalpler', E'Bir tek sana tutuldu bu kalpler\n'
-    'Sevdanın uğruna tanımaz hiç engel\n'
-    'Bizim için heves değilsin sen FENER\n'
-    'Aşkın bize yeter!', 'http://fenegram.herokuapp.com/static/chant4.mp3'),
+('Aşığım Aşığım Sana', E'Aşığım aşığım sana\n'
+    'Doyamıyorum ki sana\n'
+    'Neyleyim ben bu dünyayı of of of\n'
+    'Sen olmayınca Kanarya', 'http://fenegram.herokuapp.com/static/chant2.mp3'),
+('Sevdamıza Kimse Engel Olamaz', E'Sevdamıza kimse engel olamaz\n'
+    'Bazen hüzün vardır bazen mutluluk\n'
+    'Fener sevgisinin adı konamaz\n'
+    'Ne kupa büyüklüğü ne şampiyonluk!', 'http://fenegram.herokuapp.com/static/chant3.mp3'),
+('Sensiz Hayat Bir İşkence', E'Sensiz hayat bir işkence\n'
+    'Dilimdesin gündüz gece\n'
+    'Satır satır, hece hece\n'
+    'Şampiyonsun Fenerbahçe', 'http://fenegram.herokuapp.com/static/chant4.mp3'),
 ('Bir Tek Sana Tutuldu Bu Kalpler', E'Bir tek sana tutuldu bu kalpler\n'
     'Sevdanın uğruna tanımaz hiç engel\n'
     'Bizim için heves değilsin sen FENER\n'
