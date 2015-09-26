@@ -62,7 +62,7 @@ def get_bots():
         bots.append(bot)
         revision = row[2]
     conn.close()
-    return {"revision": revision, "items": bots};
+    return {"revision": int(revision), "items": bots};
 
 def make_json_response(d):
     text = json.dumps(d, ensure_ascii=False)
@@ -86,14 +86,14 @@ def get_bots_changes(revision):
     cur.execute('select username, action, revision as revision from bots_history where revision > %s' % revision)
     rows = cur.fetchall()
 
-    new_revision = revision
+    new_revision = int(revision)
     added_bots = []
     removed_bots = []
     updated_bots = []
     for row in rows:
         username = row[0]
         action = row[1]
-        new_revision = max(new_revision, row[2])
+        new_revision = max(new_revision, int(row[2]))
         if action == 'add':
             added_bots.append(username)
         elif action == 'remove':
