@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import json
 import os.path
@@ -48,9 +49,9 @@ def create_chant(ind):
     return {
         "title": "Bir Tek Sana Tutuldu Bu Kalpler %s" % ind,
         "lyrics": '''Bir tek sana tutuldu bu kalpler
-        Sevdanın uğruna tanımaz hiç engel
-        Bizim için heves değilsin sen FENER
-        Aşkın bize yeter!''',
+Sevdanın uğruna tanımaz hiç engel
+Bizim için heves değilsin sen FENER
+Aşkın bize yeter!''',
         "url": "%s/static/chant%s.mp3" % (BACKEND_URL, ind)
     }
 
