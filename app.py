@@ -5,7 +5,7 @@ import json
 import os
 import psycopg2
 import urlparse
-from flask import Flask, Response, send_file, abort
+from flask import Flask, Response, send_file, abort, request
 
 app = Flask(__name__)
 urlparse.uses_netloc.append("postgres")
@@ -80,8 +80,12 @@ def get_chants():
 
 @app.route('/bots')
 def bots():
-    resp_dict = {"items": get_bots()}
-    return make_json_response(resp_dict)
+    revision = request.args.get('revision')
+    if revision is None or revision == '':
+        resp_dict = {"items": get_bots()}
+        return make_json_response(resp_dict)
+    else:
+        return "will send you a diff"
 
 @app.route('/chants')
 def chants():
