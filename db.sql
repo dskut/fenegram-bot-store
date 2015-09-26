@@ -1,4 +1,8 @@
 drop table if exists chants;
+drop table if exists bots;
+drop table if exists bots_history;
+drop type if exists bot_action;
+
 create table chants (
     id serial,
     title text not null,
@@ -6,12 +10,39 @@ create table chants (
     url text
 );
 
-drop table if exists bots;
 create table bots (
     id serial,
     username text not null,
     is_main boolean
 );
+
+create type bot_action as enum (
+    'add',
+    'remove',
+    'update'
+);
+
+create table bots_history (
+    id serial,
+    username text,
+    action bot_action,
+    revision serial
+);
+
+insert into bots (username, is_main)
+values 
+('fenerbahce_bot', True),
+('fenerbahce_vote_bot', False),
+('fenerbahce_photobot', False),
+('fenerbahcebetsbot', False),
+('fenetestbot', False),
+('tahminetbot', False);
+
+insert into bots_history (username, action)
+values
+('fenetestbot', 'add'),
+('fenerbahcebetsbot', 'remove'),
+('tahminetbot', 'update');
 
 insert into chants (title, lyrics, url)
 values 
@@ -96,12 +127,4 @@ values
     'Bizim için heves değilsin sen FENER\n'
     'Aşkın bize yeter!', 'http://fenegram.herokuapp.com/static/chant20.mp3');
 
-insert into bots (username, is_main)
-values 
-('fenerbahce_bot', True),
-('fenerbahce_vote_bot', False),
-('fenerbahce_photobot', False),
-('fenerbahcebetsbot', False),
-('fenetestbot', False),
-('tahminetbot', False);
 

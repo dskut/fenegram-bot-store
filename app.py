@@ -53,14 +53,16 @@ def get_conn():
 def get_bots():
     conn = get_conn()
     cur = conn.cursor()
-    cur.execute('select username, is_main from bots;')
+    cur.execute('select b.username, b.is_main, h.revision from bots b, (select max(revision) as revision from bots_history) h;')
     rows = cur.fetchall()
-    res = []
+    bots = []
+    revision = 0
     for row in rows:
-        chant = {"username": row[0], "is_main": row[1]}
-        res.append(chant)
+        bot = {"username": row[0], "is_main": row[1]}
+        bots.append(bot)
+        revision = row[2]
     conn.close()
-    return res;
+    return {"revision": revision, "items": bots};
 
 def make_json_response(d):
     text = json.dumps(d, ensure_ascii=False)
@@ -78,14 +80,58 @@ def get_chants():
     conn.close()
     return res
 
+def get_bots_changes(revision):
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute('select username, action, revision as revision from bots_history where revision > %s' % revision)
+    rows = cur.fetchall()
+
+    new_revision = revision
+    added_bots = []
+    removed_bots = []
+    updated_bots = []
+    for row in rows:
+        username = row[0]
+        action = row[1]
+        new_revision = max(new_revision, row[2])
+        if action == 'add':
+            added_bots.append(username)
+        elif action == 'remove':
+            removed_bots.append(username)
+        elif action == 'update':
+            updated_bots.append(username)
+
+    new_bots = added_bots + updated_bots
+    added_bots_details = []
+    updated_bots_details = []
+
+    if new_bots:
+        cur.execute('select username, is_main from bots where username in %s',(tuple(added_bots + updated_bots), ))
+        rows = cur.fetchall()
+        for row in rows:
+            details = {"username": row[0], "is_main": row[1]}
+            if row[0] in added_bots:
+                added_bots_details.append(details)
+            else:
+                updated_bots_details.append(details)
+
+    conn.close()
+    removed_bots_details = [{"username": bot} for bot in removed_bots]
+    return {
+        "revision": new_revision,
+        "removed": removed_bots_details,
+        "added": added_bots_details,
+        "updated": updated_bots_details
+    }
+
 @app.route('/bots')
 def bots():
     revision = request.args.get('revision')
     if revision is None or revision == '':
-        resp_dict = {"items": get_bots()}
+        resp_dict = get_bots()
         return make_json_response(resp_dict)
     else:
-        return "will send you a diff"
+        return make_json_response(get_bots_changes(revision))
 
 @app.route('/chants')
 def chants():
