@@ -38,7 +38,7 @@ def static_file(filename):
 
 def create_bot(ind):
     return {
-        "usernamename": "@fenegram_%s_bot" % ind, 
+        "usernamename": "@test_dskut_bot", 
         "title": "Fenegram Bot %s" % ind, 
         "id": "bot_id_%s" % ind, 
         "image": "%s/static/icon%s.png" % (BACKEND_URL, ind),
