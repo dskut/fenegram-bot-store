@@ -43,7 +43,7 @@ def static_file(filename):
 
 def create_bot(ind):
     return {
-        "usernamename": "@test_dskut_bot", 
+        "username": "@test_dskut_bot",
         "title": "Fenegram Bot %s" % ind, 
         "id": "bot_id_%s" % ind, 
         "image": "%s/static/icon%s.png" % (BACKEND_URL, ind),
@@ -56,16 +56,6 @@ def get_bots():
 def make_json_response(d):
     text = json.dumps(d, ensure_ascii=False)
     return Response(text, mimetype='application/json; charset=utf-8')
-
-def create_chant(ind):
-    return {
-        "title": "Bir Tek Sana Tutuldu Bu Kalpler %s" % ind,
-        "lyrics": '''Bir tek sana tutuldu bu kalpler
-Sevdanın uğruna tanımaz hiç engel
-Bizim için heves değilsin sen FENER
-Aşkın bize yeter!''',
-        "url": "%s/static/chant%s.mp3" % (BACKEND_URL, ind)
-    }
 
 def get_chants():
     conn = psycopg2.connect(
@@ -83,7 +73,6 @@ def get_chants():
         chant = {"title": row[0], "lyrics": row[1], "url": row[2]}
         res.append(chant)
     return res
-    #return [create_chant(i) for i in xrange(1, CHANTS_COUNT+1)]
 
 @app.route('/bots')
 def bots():
