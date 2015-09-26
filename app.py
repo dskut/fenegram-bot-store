@@ -41,30 +41,33 @@ def static_file(filename):
     else:
         abort(404)
 
-def create_bot(ind):
-    return {
-        "username": "@test_dskut_bot",
-        "title": "Fenegram Bot %s" % ind, 
-        "id": "bot_id_%s" % ind, 
-        "image": "%s/static/icon%s.png" % (BACKEND_URL, ind),
-        "description": "Bot Description %s" % ind
-    }
-
-def get_bots():
-    return [create_bot(i) for i in xrange(1, BOTS_COUNT+1)]
-
-def make_json_response(d):
-    text = json.dumps(d, ensure_ascii=False)
-    return Response(text, mimetype='application/json; charset=utf-8')
-
-def get_chants():
-    conn = psycopg2.connect(
+def get_conn():
+    return psycopg2.connect(
         database=db_url.path[1:],
         user=db_url.username,
         password=db_url.password,
         host=db_url.hostname,
         port=db_url.port
     )
+
+def get_bots():
+    conn = get_conn()
+    cur = conn.cursor()
+    cur.execute('select username, is_main from bots;')
+    rows = cur.fetchall()
+    res = []
+    for row in rows:
+        chant = {"username": row[0], "is_main": row[1]}
+        res.append(chant)
+    conn.close()
+    return res;
+
+def make_json_response(d):
+    text = json.dumps(d, ensure_ascii=False)
+    return Response(text, mimetype='application/json; charset=utf-8')
+
+def get_chants():
+    conn = get_conn()
     cur = conn.cursor()
     cur.execute('select title, lyrics, url from chants;')
     rows = cur.fetchall()
@@ -72,6 +75,7 @@ def get_chants():
     for row in rows:
         chant = {"title": row[0], "lyrics": row[1], "url": row[2]}
         res.append(chant)
+    conn.close()
     return res
 
 @app.route('/bots')
